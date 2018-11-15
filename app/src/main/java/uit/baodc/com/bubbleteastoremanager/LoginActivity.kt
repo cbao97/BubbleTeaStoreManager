@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         // Hien toast message o nut forget password
         val txtForget = findViewById(R.id.forgetpassword) as TextView
         txtForget.setOnClickListener(View.OnClickListener {
-            Toast.makeText(applicationContext, "Contact Bao for help", Toast.LENGTH_LONG).show()// Set your own toast  message
+            Toast.makeText(applicationContext, "Contact Do Chi Bao for help", Toast.LENGTH_LONG).show()// Set your own toast  message
         })
         //  setting nut dang nhap
         val etUser = findViewById(R.id.userEditText) as TextView
