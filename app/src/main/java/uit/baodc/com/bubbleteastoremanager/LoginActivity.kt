@@ -19,6 +19,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.widget.TextView
 import android.content.SharedPreferences
+import android.util.Log
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_login)
-        object : CountDownTimer(5000, 1000) {
+        object : CountDownTimer(4000, 1000) {
             override fun onFinish() {
                 TeaTextView.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
@@ -52,16 +53,16 @@ class LoginActivity : AppCompatActivity() {
         val btnDangNhap = findViewById(R.id.loginButton) as Button
         btnDangNhap.setOnClickListener(
                 View.OnClickListener {
-                    val stringUsername = etUser.toString();
-                    val stringPassword = etPass.toString();
+                    val stringUsername = etUser.text.toString();
+                    val stringPassword = etPass.text.toString();
+                    Log.d("DvLog", stringUsername + stringPassword);
                     val task = "Login";
-                    val preferences = this.getSharedPreferences("MYPREFS", Context.MODE_PRIVATE)
+                    val backgroundActivity = BackgroundActivity(this@LoginActivity);
 
-                    val mName = preferences.getString("name", "ERROR getting name")
-                    val mEmail = preferences.getString("email", "ERROR getting email")
-                    etPass.setText(mName);
-                    etUser.setText(mEmail);
-                    val loginbackground = BackgroundActivity(LoginActivity)
+                    etPass.setText("");
+                    etUser.setText("");
+
+                    backgroundActivity.execute(task, stringUsername, stringPassword);
 
                 }
         )

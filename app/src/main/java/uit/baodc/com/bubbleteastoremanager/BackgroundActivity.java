@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BackgroundActivity extends AsyncTask<String, Long, String> {
+public class BackgroundActivity extends AsyncTask<String, Void, String> {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     Context context;
@@ -37,10 +39,13 @@ public class BackgroundActivity extends AsyncTask<String, Long, String> {
         editor.commit();
         String urlLogin = "https://dochibao1997.000webhostapp.com/QLTS-Login.php";
         String task = strings[0];
+        Log.d("weblog", strings[0] + strings[1] + strings[2]);
+        Log.d("task", task);
 
-        if (task.equals("login")) {
+        if (task.equals("Login")) {
             String loginUser = strings[1];
             String loginPassword = strings[2];
+            Log.d("login", loginPassword + loginUser);
             try {
                 URL url = new URL(urlLogin);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -54,6 +59,7 @@ public class BackgroundActivity extends AsyncTask<String, Long, String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
                 String myData = URLEncoder.encode("identifier_loginUser", "UTF-8") + "=" + URLEncoder.encode(loginUser, "UTF-8") + "&"
                         + URLEncoder.encode("identifier_loginPassword", "UTF-8") + "=" + URLEncoder.encode(loginPassword, "UTF-8");
+                Log.d("weblog", myData);
                 bufferedWriter.write(myData);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -102,19 +108,19 @@ public class BackgroundActivity extends AsyncTask<String, Long, String> {
 
         if (flag.equals("login")) {
             String test = "false";
-            String name = "";
-            String email = "";
+            String user = "";
+            String quyen = "";
             String[] serverResponse = s.split("[,]");
             test = serverResponse[0];
-            name = serverResponse[1];
-            email = serverResponse[2];
-
+            user = serverResponse[1];
+            quyen = serverResponse[2];
+            Log.d("webLoginresp", test + " " + user + " " + quyen);
             if (test.equals("true")) {
-                editor.putString("name", name);
+                editor.putString("user", user);
                 editor.commit();
-                editor.putString("email", email);
+                editor.putString("quyen", quyen);
                 editor.commit();
-                Intent intent = new Intent(context, LogginIn.class);
+                Intent intent = new Intent(context, OrderActivity.class);
                 context.startActivity(intent);
             } else {
                 display("Login Failed...", "That email and password do not match our records :(.");
