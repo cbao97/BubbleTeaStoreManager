@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,13 +17,15 @@ public class OrderActivity extends AppCompatActivity {
     SharedPreferences preferences;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         user = (TextView) findViewById(R.id.user);
         quyen = (TextView) findViewById(R.id.quyen);
         preferences = this.getSharedPreferences("MYFREFS", Context.MODE_PRIVATE);
+
         String mUser = preferences.getString("user", "Error getting user");
+        Log.d("Orderactivi", preferences.getString("user", "t"));
         String mQuyen = preferences.getString("quyen", "Error getting quyen");
         user.setText(mUser);
         quyen.setText(mQuyen);

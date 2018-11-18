@@ -120,6 +120,7 @@ public class BackgroundActivity extends AsyncTask<String, Void, String> {
                 editor.commit();
                 editor.putString("quyen", quyen);
                 editor.commit();
+                Log.d("editor", preferences.getString("user", "nothing"));
                 Intent intent = new Intent(context, OrderActivity.class);
                 context.startActivity(intent);
             } else {
