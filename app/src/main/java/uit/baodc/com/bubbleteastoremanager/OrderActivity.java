@@ -22,7 +22,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         user = (TextView) findViewById(R.id.user);
         quyen = (TextView) findViewById(R.id.quyen);
-        preferences = this.getSharedPreferences("MYFREFS", Context.MODE_PRIVATE);
+        preferences = this.getSharedPreferences("MYPREFS", Context.MODE_PRIVATE);
 
         String mUser = preferences.getString("user", "Error getting user");
         Log.d("Orderactivi", preferences.getString("user", "t"));
