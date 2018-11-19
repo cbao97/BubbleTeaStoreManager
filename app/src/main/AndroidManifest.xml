@@ -18,7 +18,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".OrderActivity"></activity>
+        <activity
+            android:name=".OrderActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

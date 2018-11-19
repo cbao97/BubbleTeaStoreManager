@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 public class OrderActivity extends AppCompatActivity {
     TextView user, quyen;
     SharedPreferences preferences;
-
+    int intScene = 0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,5 +31,12 @@ public class OrderActivity extends AppCompatActivity {
         user.setText(mUser);
         quyen.setText(mQuyen);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (intScene == 0) {
+            Toast.makeText(getApplicationContext(), "M", Toast.LENGTH_SHORT).show();
+        }
     }
 }

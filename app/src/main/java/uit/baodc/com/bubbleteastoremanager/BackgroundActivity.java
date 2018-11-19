@@ -98,6 +98,9 @@ public class BackgroundActivity extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        pdWaiting = new ProgressDialog(context);
+        pdWaiting.setMessage(context.getString(R.string.pleasewait));
+        pdWaiting.show();
     }
 
     //This method willbe called when doInBackground completes... and it will return the completion string which
@@ -121,19 +124,29 @@ public class BackgroundActivity extends AsyncTask<String, Void, String> {
                 editor.putString("quyen", quyen);
                 editor.commit();
                 Log.d("editor", preferences.getString("user", "nothing"));
-                Intent intent = new Intent(context, OrderActivity.class);
-                context.startActivity(intent);
+                // Quyen Admin
+                if (quyen.equals("0")) {
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    context.startActivity(intent);
+                }
+                // Quyen nhan vien dau bep
+                if (quyen.equals("1")) {
+                    Intent intent = new Intent(context, OrderActivity.class);
+                    context.startActivity(intent);
+                }
+                // Quyen nhan vien order
             } else {
-                display("Login Failed...", "That email and password do not match our records :(.");
+                display("Đăng nhập thất bại", "User và mật khẩu không đúng");
             }
         } else {
-            display("Login Failed...", "Something weird happened :(.");
+            display("Đăng nhập thất bại", "Lỗi không xác định E01");
         }
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+        if (pdWaiting.isShowing()) pdWaiting.dismiss();
     }
 
     public void display(String title, String message) {
